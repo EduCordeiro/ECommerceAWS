@@ -5,19 +5,19 @@ import { Construct } from "constructs"
 
 export class ProductsAppStack extends cdk.Stack{
     
-    readonly productsFeatchHandler: lambdaNodeJS.NodejsFunction
+    readonly productsFetchHandler: lambdaNodeJS.NodejsFunction
 
     constructor(scope: Construct, id: string, props?: cdk.StackProps){
 
         super(scope, id, props)
 
-        this.productsFeatchHandler = new lambdaNodeJS.NodejsFunction(
+        this.productsFetchHandler = new lambdaNodeJS.NodejsFunction(
             this,
-            "productsFeatchHandler",
+            "ProductsFetchFunction",
             {
                 runtime: lambda.Runtime.NODEJS_20_X,
-                functionName: "productsFeatchHandler",
-                entry: "lambda/products/productsFeatchFunction.ts",
+                functionName: "ProductsFetchFunction",
+                entry: "lambda/products/productsFetchFunction.ts",
                 handler: "handler",
                 memorySize: 512,
                 timeout: cdk.Duration.seconds(5),

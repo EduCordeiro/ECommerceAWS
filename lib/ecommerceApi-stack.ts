@@ -6,7 +6,7 @@ import * as cwlogs from "aws-cdk-lib/aws-logs"
 import { Construct } from "constructs"
 
 interface ECommerceApiStackProps extends cdk.StackProps{
-    productsFeatchHandle : lambdaNodeJS.NodejsFunction
+    productsFetchHandle : lambdaNodeJS.NodejsFunction
 }
 
 export class ECommerceApiStack extends cdk.Stack{
@@ -36,7 +36,7 @@ export class ECommerceApiStack extends cdk.Stack{
             }
         })
 
-        const productsFetchIntegration = new apigatway.LambdaIntegration(props.productsFeatchHandle)
+        const productsFetchIntegration = new apigatway.LambdaIntegration(props.productsFetchHandle)
 
         // api.root fornece o "/"        
         const productsResource = api.root.addResource("products") // fornece o "/products"

@@ -2,7 +2,7 @@ import { JobDefinitionBase } from "aws-cdk-lib/aws-batch";
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { json } from "stream/consumers";
 
-export async function handler(event: APIGatewayProxyEvent,context: Context): Promise<APIGatewayProxyResult>
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult>
 {
 
     const lambdaRequestId   = context.awsRequestId;             // Identificador único da excecussão da função lambda
@@ -20,7 +20,9 @@ export async function handler(event: APIGatewayProxyEvent,context: Context): Pro
             return{
                 statusCode: 200,
                 body: JSON.stringify({
-                    message: "GET Products - OK"
+                    message: "GET Products - OK",
+                    lambdaRequestId: lambdaRequestId,
+                    APIRequestId: APIRequestId
                 })
             }
         }
@@ -29,7 +31,9 @@ export async function handler(event: APIGatewayProxyEvent,context: Context): Pro
     return {
         statusCode: 400,
         body: JSON.stringify({
-            message: "Bad request"
+            message: "Bad request",
+            lambdaRequestId: lambdaRequestId,
+            APIRequestId: APIRequestId            
         })
     }
 }
