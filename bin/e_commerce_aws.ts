@@ -3,6 +3,7 @@ import 'source-map-support/register'
 import * as cdk from 'aws-cdk-lib'
 import { ProductsAppStack } from '../lib/productsApp-stack'
 import { ECommerceApiStack } from '../lib/ecommerceApi-stack'
+import { ProductsAppLayerStack } from '../lib/productsAppLayers-stack'
 
 const app = new cdk.App();
 
@@ -16,10 +17,16 @@ const tags = {
   team: "Mandalorian"
 }
 
+const productsAppLayerStack = new ProductsAppLayerStack(app, "ProductsAppLayers", {
+  tags: tags,
+  env: env  
+})
+
 const productsAppStack = new ProductsAppStack(app, "ProductsApp", {
   tags: tags,
   env: env
 })
+productsAppStack.addDependency(productsAppLayerStack)
 
 const eCommerceApiStack = new ECommerceApiStack(app, "ECommerceApi", {
   productsFetchHandle: productsAppStack.productsFetchHandler,
@@ -27,5 +34,4 @@ const eCommerceApiStack = new ECommerceApiStack(app, "ECommerceApi", {
   tags: tags,
   env: env
 })
-
 eCommerceApiStack.addDependency(productsAppStack)
